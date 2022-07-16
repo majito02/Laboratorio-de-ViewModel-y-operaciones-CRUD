@@ -1,0 +1,90 @@
+﻿@model List<MVCCrud.Models.ViewModels.ListClienteViewModel>
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+<style>
+    #texto {
+        background-color: darkcyan;
+        margin: 0 auto 4px;
+        height: 40px;
+    }
+
+    #info {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 0 5px;
+        font-family: 'Berlin Sans FB';
+        max-width: 750px;
+    }
+
+    .tabla {
+        background-color: darkslategray;
+        color: white;
+        font-size: 20px;
+    }
+
+    .borde {
+        border-width: 10px;
+        border-radius: 25px;
+        border-style: solid;
+        border-color: darkslategrey;
+        height: 550px;
+        width: 850px;
+    }
+
+    h2 {
+        color: white;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row" style="text-align:right; padding:10px">
+            <a href="~/Cliente/Nuevo " class="btn btn-primary">Agregar</a>
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Cedula</th>
+                <th>Correo</th>
+                <th>Foto</th>
+                <th></th>
+            </tr>
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <td>@oElemento.id_cli</td>
+                    <td>@oElemento.nombre_cli</td>
+                    <td>@oElemento.cedula_cli</td>
+                    <td>@oElemento.correo_cli</td>
+                    <td>
+                        <img width="100" src="@Url.Action("getImage", "Cliente", new { id = @oElemento.id_cli})" />
+                                    
+                    <td>
+                        <a class="btn btn-default" href="@Url.Action("Editar", "Cliente", new { id = @oElemento.id_cli})">Editar</a>
+                        <a class="btn btn-danger" href="@Url.Action("Eliminar", "Cliente", new { id = @oElemento.id_cli})"
+                           onclick="return mensajeAlerta()">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    function mensajeAlerta() {
+        var respuesta = confirm("ESTA SEGURO QUE QUIERE ELIMINAR ESTE DATO ?");
+        if (respuesta == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>

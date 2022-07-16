@@ -1,0 +1,83 @@
+﻿@model MVCCrud.Models.ViewModels.ClienteViewModel
+@{
+    ViewBag.Title = "Datos del Cliente";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Editar", "cliente", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.HiddenFor(d => d.id_cli)
+            <div>
+                @Html.LabelFor(d => d.nombre_cli)
+                @Html.TextBoxFor(d => d.nombre_cli, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.nombre_cli, null, new { @class = "red" })
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.cedula_cli)
+                @Html.TextBoxFor(d => d.cedula_cli, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.cedula_cli, null, new { @class = "red" })
+            </div>
+
+
+            <div>
+                @Html.LabelFor(d => d.correo_cli)
+                @Html.TextBoxFor(d => d.correo_cli, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.correo_cli, null, new { @class = "red" })
+            </div>
+
+            <div>
+                @Html.LabelFor(d => d.fechaNacimiento_cli) <br />
+                @Html.EditorFor(d => d.fechaNacimiento_cli, "", new
+                {
+                    htmlAttributes = new
+                { @class = "datepicker", @readonly = "true" }
+                })
+                @Html.ValidationMessageFor(d => d.fechaNacimiento_cli, null, new { @class = "red" })
+            </div>
+            <br>
+            <br>
+
+            <div>
+                @Html.LabelFor(d => d.foto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <img width="250" src="@Url.Action("getImage", "cliente", new { id = Model.id_cli })" height="300" />
+                <input type="file" name="imageload" />
+                @Html.ValidationMessageFor(d => d.foto, "", new { @class = "text-danger" })
+
+
+
+
+            </div>
+            <br />
+            <br />
+            <div>
+                <input value="Actualizar" class=" btn btn-primary" type="submit" />
+            </div>
+
+        </div>
+
+    </div>
+}
+
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.13.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "yyyy-mm-dd",
+                showOn: "button",
+                buttonText: "Seleccione la fecha",
+                buttonImage: "../../calendar.png"
+            });
+        });
+    </script>
+}
